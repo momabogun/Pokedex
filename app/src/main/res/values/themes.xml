@@ -2,7 +2,12 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Pokedex" parent="Theme.Material3.DayNight.NoActionBar">
          <item name="colorPrimary">@color/SI_Purple</item>
-        <item name="colorOnPrimary">@color/SI_Grey</item>
+        <item name="colorPrimaryVariant">#00FFE5</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#FFFFFF</item>
+        <item name="colorSecondaryVariant">#FFFFFF</item>
+        <item name="colorOnSecondary">@color/black</item>
     </style>
 
     <style name="Theme.Pokedex" parent="Base.Theme.Pokedex" />

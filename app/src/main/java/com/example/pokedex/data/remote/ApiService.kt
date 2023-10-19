@@ -2,6 +2,7 @@ package com.example.pokedex.data.remote
 
 import com.example.pokedex.data.model.PokemonApi
 import com.example.pokedex.data.model.ResponseList
+import com.example.pokedex.data.model.SpeciesApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -28,6 +29,10 @@ interface ApiService {
 
     @GET("pokemon/{pokemonName}")
     suspend fun getPokemonByName(@Path("pokemonName") pokemonName: String) : PokemonApi
+
+
+    @GET("pokemon-species/{pokemonName}")
+    suspend fun getPokemonSpecies(@Path("pokemonName") pokemonName: String): SpeciesApi
 
 
 }

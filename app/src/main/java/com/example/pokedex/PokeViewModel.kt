@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.pokedex.data.AppRepository
 import com.example.pokedex.data.database.getDatabase
 import com.example.pokedex.data.model.Pokemon
-import com.example.pokedex.data.model.PokemonApi
 import com.example.pokedex.data.remote.PokeApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,6 +23,9 @@ class PokeViewModel(app: Application) : AndroidViewModel(app){
 init {
     loadPokeList()
 }
+
+
+    fun getPokemon(pokeId:Int): LiveData<Pokemon> = repository.getPokemon(pokeId)
 
 
 
