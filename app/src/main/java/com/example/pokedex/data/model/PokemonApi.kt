@@ -8,7 +8,7 @@ data class PokemonApi(
     val sprites:Sprites,
     val height: Int,
     val weight: Int,
-    val moves: List<MoveInResponse>
+    val moves: List<MovesWithDetails>
 )
 
 
@@ -26,6 +26,9 @@ data class OfficialArtwork(
     val front_default: String
 )
 
-data class MoveInResponse(
-    val move: Move
+data class MovesWithDetails(
+    val move: Move,
+    val version_group_details: List<VersionGroupDetails>
 )
+
+

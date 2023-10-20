@@ -11,14 +11,19 @@ import androidx.room.ForeignKey
             parentColumns = ["id"],
             childColumns = ["pokemonId"]
         ),
-    ForeignKey(
-        entity = Move::class,
-        parentColumns = ["name"],
-        childColumns = ["moveName"]
-    )
-    ]
+        ForeignKey(
+            entity = MoveDb::class,
+            parentColumns = ["name"],
+            childColumns = ["moveName"]
+        ),
+        ForeignKey(
+            entity = VersionGroupDetails::class,
+            parentColumns = ["level_learned_at"],
+            childColumns = ["level"]
+        )]
 )
 data class PokemonMoveCrossRef(
     val pokemonId: Int,
-    val moveName: String
+    val moveName: String,
+    val level: Int
 )

@@ -88,7 +88,8 @@ class DetailsFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
-            binding.movesRV.adapter = MovesAdapter(it.moves)
+            val adapter = MovesAdapter(it.moves.toMutableList(),it.levels.toMutableList())
+            binding.movesRV.adapter = adapter
 
 
 

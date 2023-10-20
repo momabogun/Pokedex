@@ -1,5 +1,7 @@
 package com.example.pokedex.data.remote
 
+import com.example.pokedex.data.model.Move
+import com.example.pokedex.data.model.MoveApi
 import com.example.pokedex.data.model.PokemonApi
 import com.example.pokedex.data.model.ResponseList
 import com.example.pokedex.data.model.SpeciesApi
@@ -24,11 +26,14 @@ private val retrofit = Retrofit.Builder()
 
 interface ApiService {
 
-    @GET("pokemon?limit=100")
+    @GET("pokemon?limit=20")
     suspend fun getPokemonList() : ResponseList
 
     @GET("pokemon/{pokemonName}")
     suspend fun getPokemonByName(@Path("pokemonName") pokemonName: String) : PokemonApi
+
+    @GET("move/{moveId}")
+    suspend fun getMoveById(@Path("moveId") moveId: Int): MoveApi
 
 
     @GET("pokemon-species/{pokemonName}")

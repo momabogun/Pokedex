@@ -5,10 +5,11 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.IGNORE
 import androidx.room.Query
-import com.example.pokedex.data.model.Move
+import com.example.pokedex.data.model.MoveDb
 import com.example.pokedex.data.model.Pokemon
 import com.example.pokedex.data.model.PokemonDb
 import com.example.pokedex.data.model.PokemonMoveCrossRef
+import com.example.pokedex.data.model.VersionGroupDetails
 
 @Dao
 interface PokemonDao {
@@ -21,7 +22,12 @@ interface PokemonDao {
     fun insertPokemon(pokemonDb: PokemonDb)
 
     @Insert(onConflict = IGNORE)
-    fun insertMove(move: Move)
+    fun insertMove(move: MoveDb)
+
+    @Insert(onConflict = IGNORE)
+    fun insertLevel(level: VersionGroupDetails)
+
+
 
     @Insert(onConflict = IGNORE)
     fun insertPokemonMoveCrossRef(crossRef: PokemonMoveCrossRef)

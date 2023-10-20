@@ -2,6 +2,7 @@ package com.example.pokedex.data
 
 import androidx.lifecycle.LiveData
 import com.example.pokedex.data.database.PokeDatabase
+import com.example.pokedex.data.model.MoveDb
 import com.example.pokedex.data.model.Pokemon
 import com.example.pokedex.data.model.PokemonDb
 import com.example.pokedex.data.model.PokemonInResponse
@@ -23,7 +24,7 @@ class AppRepository(val apiService: ApiService, val db: PokeDatabase) {
         }
     }
 
-    fun getPokemon(pokeId: Int):LiveData<Pokemon> = db.dao.getPokemon(pokeId)
+    fun getPokemon(pokeId: Int): LiveData<Pokemon> = db.dao.getPokemon(pokeId)
 
 
     suspend fun loadPokemon(pokemonInResponse: PokemonInResponse) {
@@ -37,10 +38,24 @@ class AppRepository(val apiService: ApiService, val db: PokeDatabase) {
         )
         db.dao.insertPokemon(pokemonDb)
 
-        for (moveInResponse in pokemonWithDetail.moves){
-            val move = moveInResponse.move
-            db.dao.insertMove(move)
-            val crossRef = PokemonMoveCrossRef(pokemonWithDetail.id,move.name)
+        for (moveInResponse in pokemonWithDetail.moves) {
+            val moveWithDetails = apiService.getMoveById(moveInResponse.move.id)
+            val level = moveInResponse.version_group_details[0]
+            val moveDb = MoveDb(
+                id = moveWithDetails.id,
+                name = moveWithDetails.name,
+                type = moveWithDetails.type.name,
+                power = moveWithDetails.power,
+                pp = moveWithDetails.pp,
+                category = moveWithDetails.category.name
+            )
+            db.dao.insertMove(moveDb)
+            db.dao.insertLevel(level)
+            val crossRef = PokemonMoveCrossRef(
+                pokemonWithDetail.id,
+                moveWithDetails.name,
+                level.level_learned_at
+            )
             db.dao.insertPokemonMoveCrossRef(crossRef)
         }
     }

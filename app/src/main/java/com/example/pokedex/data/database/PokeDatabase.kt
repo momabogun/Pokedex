@@ -8,13 +8,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.pokedex.data.model.PokemonMoveCrossRef
 import com.example.pokedex.data.model.Move
+import com.example.pokedex.data.model.MoveDb
+import com.example.pokedex.data.model.VersionGroupDetails
 
 
 @Database(entities = [
     PokemonDb::class,
-    Move::class,
+    VersionGroupDetails::class,
+    MoveDb::class,
     PokemonMoveCrossRef::class
-                     ], version = 3)
+                     ], version = 2)
 abstract class PokeDatabase : RoomDatabase() {
 
     abstract val dao: PokemonDao
