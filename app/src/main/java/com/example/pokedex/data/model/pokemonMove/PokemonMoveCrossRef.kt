@@ -1,7 +1,10 @@
-package com.example.pokedex.data.model
+package com.example.pokedex.data.model.pokemonMove
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import com.example.pokedex.data.model.pokemon.PokemonDb
+import com.example.pokedex.data.model.pokemonMove.MoveDb
+import com.example.pokedex.data.model.pokemonMove.VersionGroupDetails
 
 @Entity(
     primaryKeys = ["pokemonId", "moveName"],

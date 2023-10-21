@@ -1,23 +1,36 @@
 package com.example.pokedex.data.database
 
-import com.example.pokedex.data.model.PokemonDb
+import com.example.pokedex.data.model.pokemon.PokemonDb
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.pokedex.data.model.PokemonMoveCrossRef
-import com.example.pokedex.data.model.Move
-import com.example.pokedex.data.model.MoveDb
-import com.example.pokedex.data.model.VersionGroupDetails
+import com.example.pokedex.data.model.pokemonAbilities.PokemonAbility
+import com.example.pokedex.data.model.pokemonAbilities.PokemonAbilityCrossRef
+import com.example.pokedex.data.model.pokemonMove.PokemonMoveCrossRef
+import com.example.pokedex.data.model.pokemonMove.MoveDb
+import com.example.pokedex.data.model.pokemonType.PokemonType
+import com.example.pokedex.data.model.pokemonType.PokemonTypeCrossRef
+import com.example.pokedex.data.model.pokemonMove.VersionGroupDetails
+import com.example.pokedex.data.model.pokemonStats.PokemonStatCrossRef
+import com.example.pokedex.data.model.pokemonStats.Stat
 
 
-@Database(entities = [
-    PokemonDb::class,
-    VersionGroupDetails::class,
-    MoveDb::class,
-    PokemonMoveCrossRef::class
-                     ], version = 2)
+@Database(
+    entities = [
+        PokemonDb::class,
+        VersionGroupDetails::class,
+        MoveDb::class,
+        PokemonMoveCrossRef::class,
+        PokemonAbility::class,
+        PokemonAbilityCrossRef::class,
+        PokemonType::class,
+        PokemonTypeCrossRef::class,
+        Stat::class,
+        PokemonStatCrossRef::class
+    ], version = 2
+)
 abstract class PokeDatabase : RoomDatabase() {
 
     abstract val dao: PokemonDao

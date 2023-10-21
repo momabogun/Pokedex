@@ -6,6 +6,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+
+    <ImageView
+        android:id="@+id/type1IV"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:elevation="10dp"
+        app:layout_constraintStart_toEndOf="@+id/pokemonIV"
+        app:layout_constraintTop_toBottomOf="@+id/number"
+        app:srcCompat="@drawable/dragon_type_symbol_galar_by_jormxdos_dffvl4n" />
+
+    <ImageView
+        android:id="@+id/type2IV"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:elevation="10dp"
+        app:layout_constraintStart_toEndOf="@+id/type1IV"
+        app:layout_constraintTop_toBottomOf="@+id/number" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/category_CardView"
         android:layout_width="match_parent"
@@ -21,16 +39,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:elevation="10dp"
         android:text="TextView"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/pokemon_nameTV"
         app:layout_constraintStart_toEndOf="@+id/pokemonIV"
         app:layout_constraintTop_toTopOf="@+id/category_CardView" />
 

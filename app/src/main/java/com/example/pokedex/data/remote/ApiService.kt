@@ -1,10 +1,10 @@
 package com.example.pokedex.data.remote
 
-import com.example.pokedex.data.model.Move
-import com.example.pokedex.data.model.MoveApi
-import com.example.pokedex.data.model.PokemonApi
-import com.example.pokedex.data.model.ResponseList
-import com.example.pokedex.data.model.SpeciesApi
+import com.example.pokedex.data.model.pokemonEvolution.EvolutionApi
+import com.example.pokedex.data.model.pokemonMove.MoveApi
+import com.example.pokedex.data.model.pokemon.PokemonApi
+import com.example.pokedex.data.model.pokemon.ResponseList
+import com.example.pokedex.data.model.pokemonSpecies.SpeciesApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -26,11 +26,14 @@ private val retrofit = Retrofit.Builder()
 
 interface ApiService {
 
-    @GET("pokemon?limit=20")
+    @GET("pokemon?limit=40")
     suspend fun getPokemonList() : ResponseList
 
     @GET("pokemon/{pokemonName}")
     suspend fun getPokemonByName(@Path("pokemonName") pokemonName: String) : PokemonApi
+
+    @GET("evolution-chain/{evolutionId}")
+    suspend fun getEvolutionByID(@Path("evolutionId")evolutionId: Int): EvolutionApi
 
     @GET("move/{moveId}")
     suspend fun getMoveById(@Path("moveId") moveId: Int): MoveApi

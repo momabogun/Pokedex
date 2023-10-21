@@ -5,11 +5,17 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.IGNORE
 import androidx.room.Query
-import com.example.pokedex.data.model.MoveDb
+import com.example.pokedex.data.model.pokemonMove.MoveDb
 import com.example.pokedex.data.model.Pokemon
-import com.example.pokedex.data.model.PokemonDb
-import com.example.pokedex.data.model.PokemonMoveCrossRef
-import com.example.pokedex.data.model.VersionGroupDetails
+import com.example.pokedex.data.model.pokemon.PokemonDb
+import com.example.pokedex.data.model.pokemonAbilities.PokemonAbility
+import com.example.pokedex.data.model.pokemonAbilities.PokemonAbilityCrossRef
+import com.example.pokedex.data.model.pokemonMove.PokemonMoveCrossRef
+import com.example.pokedex.data.model.pokemonType.PokemonType
+import com.example.pokedex.data.model.pokemonType.PokemonTypeCrossRef
+import com.example.pokedex.data.model.pokemonMove.VersionGroupDetails
+import com.example.pokedex.data.model.pokemonStats.PokemonStatCrossRef
+import com.example.pokedex.data.model.pokemonStats.Stat
 
 @Dao
 interface PokemonDao {
@@ -22,15 +28,39 @@ interface PokemonDao {
     fun insertPokemon(pokemonDb: PokemonDb)
 
     @Insert(onConflict = IGNORE)
+    fun insertType(pokemonType: PokemonType)
+
+    @Insert(onConflict = IGNORE)
+    fun insertAbility(pokemonAbility: PokemonAbility)
+
+    @Insert(onConflict = IGNORE)
     fun insertMove(move: MoveDb)
+
+
+
+//    @Insert(onConflict = IGNORE)
+//    fun insertEvolution(evolutionDb: EvolutionDb)
 
     @Insert(onConflict = IGNORE)
     fun insertLevel(level: VersionGroupDetails)
 
-
+    @Insert(onConflict = IGNORE)
+    fun insertStat(stat: Stat)
 
     @Insert(onConflict = IGNORE)
     fun insertPokemonMoveCrossRef(crossRef: PokemonMoveCrossRef)
+
+
+    @Insert(onConflict = IGNORE)
+    fun insertPokemonTypeCrossRef(crossRef: PokemonTypeCrossRef)
+
+
+    @Insert(onConflict = IGNORE)
+    fun insertPokemonStatCrossRef(crossRef: PokemonStatCrossRef)
+
+
+    @Insert(onConflict = IGNORE)
+    fun insertPokemonAbilityCrossRef(crossRef: PokemonAbilityCrossRef)
 
 
     @Query("SELECT EXISTS(SELECT * FROM pokemon WHERE id=:id) ")

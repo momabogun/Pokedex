@@ -4,7 +4,8 @@
     <color name="SI_DeepPurple">#FF060F38</color>
     <color name="SI_Purple">#FF7656FD</color>
     <color name="SI_Yellow">#FFFFF250</color>
-    <color name="SI_Grey">#868686</color>
+    <color name="SI_Grey">#5A5A5A</color>
+    <color name="grey">#E7E7E7</color>
     <color name="green">#7CB342</color>
     <color name="orange">#D38016</color>
     <color name="red">#E53935</color>

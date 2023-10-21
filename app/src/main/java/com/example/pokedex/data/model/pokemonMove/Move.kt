@@ -1,6 +1,5 @@
-package com.example.pokedex.data.model
+package com.example.pokedex.data.model.pokemonMove
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 data class Move(

@@ -5,11 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokedex.R
-import com.example.pokedex.data.model.Move
-import com.example.pokedex.data.model.MoveDb
-import com.example.pokedex.data.model.PokemonDb
-import com.example.pokedex.data.model.VersionGroupDetails
-import com.example.pokedex.databinding.ListItemBinding
+import com.example.pokedex.data.model.pokemonMove.MoveDb
+import com.example.pokedex.data.model.pokemonMove.VersionGroupDetails
 import com.example.pokedex.databinding.ListMovesBinding
 import java.util.Locale
 
@@ -61,31 +58,40 @@ class MovesAdapter(
             "ice"->holder.binding.typeMoveIV.setImageResource(R.drawable.ice_type_symbol_galar_by_jormxdos_dffvl40)
             "psychic"->holder.binding.typeMoveIV.setImageResource(R.drawable.psychic_type_symbol_galar_by_jormxdos_dffvl5b)
             "steel"->holder.binding.typeMoveIV.setImageResource(R.drawable.steel_type_symbol_galar_by_jormxdos_dffvl50)
-
+            "electric"->holder.binding.typeMoveIV.setImageResource(R.drawable.electric_type_symbol_galar_by_jormxdos_dffvl6b)
         }
 
         when(move.category){
             "special"->holder.binding.categoryMoveIV.setImageResource(R.drawable.special_move_icon_by_jormxdos_dfgb60n)
             "physical"->holder.binding.categoryMoveIV.setImageResource(R.drawable.physical_move_icon_by_jormxdos_dfgb60u)
             "status"->holder.binding.categoryMoveIV.setImageResource(R.drawable.status_move_icon_by_jormxdos_dfgb616)
+        }
 
+
+        holder.binding.accMoveTV.text = if ( move.accuracy!= null ){
+            move.accuracy.toString()
+        }else{
+            "-"
+        }
+
+        holder.binding.powerTV.text = if ( move.power!= null ){
+            move.power.toString()
+        }else{
+            "-"
         }
 
 
 
-        holder.binding.moveNameTV.text = move.name.replaceFirstChar {
-            if (it.isLowerCase()) it.titlecase(
-                Locale.ROOT
-            ) else it.toString()
+        holder.binding.moveNameTV.text = move.name.split("-").joinToString(" ") {
+            it.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(
+                    Locale.ROOT
+                ) else it.toString()
+            }
         }
+
         val details = detailsList[position]
-        holder.binding.levelTV.text = if (details.level_learned_at > 0){
-            "Lv" + details.level_learned_at.toString()
-        } else{
-            "Egg moves"
-        }
-
-
+        holder.binding.levelTV.text = "Lv" + details.level_learned_at.toString()
     }
 
     override fun getItemCount(): Int {
