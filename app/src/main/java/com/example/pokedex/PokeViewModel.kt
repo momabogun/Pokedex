@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.pokedex.data.AppRepository
 import com.example.pokedex.data.database.getDatabase
 import com.example.pokedex.data.model.Pokemon
+import com.example.pokedex.data.model.pokemonEvolution.EvolutionDb
 import com.example.pokedex.data.remote.PokeApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,6 +27,8 @@ init {
 
 
     fun getPokemon(pokeId:Int): LiveData<Pokemon> = repository.getPokemon(pokeId)
+
+    fun getEvolution(evoId: Int): LiveData<EvolutionDb> = repository.getEvolution(evoId)
 
 
 

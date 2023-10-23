@@ -7,7 +7,7 @@ import com.example.pokedex.data.model.pokemonMove.MoveDb
 import com.example.pokedex.data.model.pokemonMove.VersionGroupDetails
 
 @Entity(
-    primaryKeys = ["pokemonId", "statValue"],
+    primaryKeys = ["pokemonId", "statName"],
     foreignKeys = [
         ForeignKey(
             entity = PokemonDb::class,
@@ -15,12 +15,18 @@ import com.example.pokedex.data.model.pokemonMove.VersionGroupDetails
             childColumns = ["pokemonId"]
         ),
         ForeignKey(
-            entity = Stat::class,
-            parentColumns = ["base_stat"],
-            childColumns = ["statValue"]
+            entity = StatName::class,
+            parentColumns = ["name"],
+            childColumns = ["statName"]
+        ),
+        ForeignKey(
+            entity = StatDb::class,
+            parentColumns = ["value"],
+            childColumns = ["valueCross"]
         )]
 )
 data class PokemonStatCrossRef(
     val pokemonId: Int,
-    val statValue: Int
+    val statName: String,
+    val valueCross: Int
 )

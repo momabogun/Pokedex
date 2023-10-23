@@ -10,12 +10,15 @@ import com.example.pokedex.data.model.Pokemon
 import com.example.pokedex.data.model.pokemon.PokemonDb
 import com.example.pokedex.data.model.pokemonAbilities.PokemonAbility
 import com.example.pokedex.data.model.pokemonAbilities.PokemonAbilityCrossRef
+import com.example.pokedex.data.model.pokemonEvolution.EvolutionDb
 import com.example.pokedex.data.model.pokemonMove.PokemonMoveCrossRef
 import com.example.pokedex.data.model.pokemonType.PokemonType
 import com.example.pokedex.data.model.pokemonType.PokemonTypeCrossRef
 import com.example.pokedex.data.model.pokemonMove.VersionGroupDetails
 import com.example.pokedex.data.model.pokemonStats.PokemonStatCrossRef
-import com.example.pokedex.data.model.pokemonStats.Stat
+import com.example.pokedex.data.model.pokemonStats.StatDb
+import com.example.pokedex.data.model.pokemonStats.StatName
+
 
 @Dao
 interface PokemonDao {
@@ -38,14 +41,20 @@ interface PokemonDao {
 
 
 
-//    @Insert(onConflict = IGNORE)
-//    fun insertEvolution(evolutionDb: EvolutionDb)
+    @Insert(onConflict = IGNORE)
+    fun insertEvolution(evolutionDb: EvolutionDb)
 
     @Insert(onConflict = IGNORE)
     fun insertLevel(level: VersionGroupDetails)
 
     @Insert(onConflict = IGNORE)
-    fun insertStat(stat: Stat)
+    fun insertStat(stat: StatDb)
+
+    @Insert(onConflict = IGNORE)
+    fun insertStatName(name: StatName)
+
+    @Insert(onConflict = IGNORE)
+    fun insertPokemonStatCrossRef(crossRef: PokemonStatCrossRef)
 
     @Insert(onConflict = IGNORE)
     fun insertPokemonMoveCrossRef(crossRef: PokemonMoveCrossRef)
@@ -55,8 +64,7 @@ interface PokemonDao {
     fun insertPokemonTypeCrossRef(crossRef: PokemonTypeCrossRef)
 
 
-    @Insert(onConflict = IGNORE)
-    fun insertPokemonStatCrossRef(crossRef: PokemonStatCrossRef)
+
 
 
     @Insert(onConflict = IGNORE)
@@ -70,5 +78,12 @@ interface PokemonDao {
 
     @Query("SELECT * FROM pokemon WHERE id = :id")
     fun getPokemon(id: Int): LiveData<Pokemon>
+
+    @Query("SELECT * FROM pokemon WHERE name = :name")
+    fun getPokemonByName(name: String): Pokemon
+
+
+    @Query("SELECT * FROM evolution WHERE evoId = :id")
+    fun getEvolution(id: Int): LiveData<EvolutionDb>
 
 }

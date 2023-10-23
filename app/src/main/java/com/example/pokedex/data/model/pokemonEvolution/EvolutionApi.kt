@@ -25,7 +25,7 @@ data class BasicForm(
 )
 
 data class EvolutionDetails(
-    val min_level: Int
+    val min_level: Int?
 )
 
 

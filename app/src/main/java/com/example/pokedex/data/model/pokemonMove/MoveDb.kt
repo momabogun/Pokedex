@@ -3,7 +3,7 @@ package com.example.pokedex.data.model.pokemonMove
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "move")
+@Entity(tableName = "moves")
 data class MoveDb (
     val id: Int,
     @PrimaryKey

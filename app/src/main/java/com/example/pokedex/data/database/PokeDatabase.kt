@@ -8,13 +8,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.pokedex.data.model.pokemonAbilities.PokemonAbility
 import com.example.pokedex.data.model.pokemonAbilities.PokemonAbilityCrossRef
+import com.example.pokedex.data.model.pokemonEvolution.EvolutionDb
 import com.example.pokedex.data.model.pokemonMove.PokemonMoveCrossRef
 import com.example.pokedex.data.model.pokemonMove.MoveDb
 import com.example.pokedex.data.model.pokemonType.PokemonType
 import com.example.pokedex.data.model.pokemonType.PokemonTypeCrossRef
 import com.example.pokedex.data.model.pokemonMove.VersionGroupDetails
 import com.example.pokedex.data.model.pokemonStats.PokemonStatCrossRef
-import com.example.pokedex.data.model.pokemonStats.Stat
+import com.example.pokedex.data.model.pokemonStats.StatDb
+import com.example.pokedex.data.model.pokemonStats.StatName
 
 
 @Database(
@@ -27,9 +29,11 @@ import com.example.pokedex.data.model.pokemonStats.Stat
         PokemonAbilityCrossRef::class,
         PokemonType::class,
         PokemonTypeCrossRef::class,
-        Stat::class,
-        PokemonStatCrossRef::class
-    ], version = 2
+        StatDb::class,
+        PokemonStatCrossRef::class,
+        StatName::class,
+        EvolutionDb::class
+    ], version = 1
 )
 abstract class PokeDatabase : RoomDatabase() {
 

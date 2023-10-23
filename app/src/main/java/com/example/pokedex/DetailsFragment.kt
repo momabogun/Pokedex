@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.pokedex.adapter.MovesAdapter
+import com.example.pokedex.adapter.StatsAdapter
 import com.example.pokedex.data.model.Pokemon
 import com.example.pokedex.data.model.pokemonAbilities.PokemonAbility
 import com.example.pokedex.data.model.pokemonType.PokemonType
@@ -76,6 +77,9 @@ class DetailsFragment : Fragment() {
 
         }
 
+
+
+
         viewmodel.getPokemon(pokeId).observe(viewLifecycleOwner) {
             pokemon = it
             binding.detailsIV.load(pokemon.pokemonDb.pokemonImage)
@@ -96,8 +100,62 @@ class DetailsFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
+
+
+
+
+
+
+
+
+            val statAdapter = StatsAdapter(it.stats, it.nameStats)
+            binding.statsRV.adapter = statAdapter
+
+
+
+
+
             val adapter = MovesAdapter(it.moves.toMutableList(), it.levels.toMutableList())
             binding.movesRV.adapter = adapter
+
+
+            viewmodel.getEvolution(it.pokemonDb.evolution).observe(viewLifecycleOwner){
+
+                if (it.levelToEvolve == 0){
+                    binding.evolutionFL.visibility = View.GONE
+                } else{
+                    binding.textView8.text = it.basicName
+                    binding.textView9.text = it.firstEvoName
+                    binding.lvlDetailsTV.text = it.levelToEvolve.toString()
+                    binding.evolution1IV.load(it.basicPicture)
+                    binding.evolution2IV.load(it.firstEvoPicture)
+                }
+
+                if (it.levelToEvolveSecond == 0){
+                    binding.textView10.text = ""
+                    binding.textView11.text = ""
+                    binding.lvlDetails2TV.text= ""
+                    binding.arrow2IV.visibility = View.GONE
+                    binding.evolution12IV.visibility = View.GONE
+                    binding.evolution22IV.visibility = View.GONE
+                }else{
+                    binding.textView10.text = it.firstEvoName
+                    binding.textView11.text = it.secondEvoName
+                    binding.lvlDetails2TV.text = it.levelToEvolveSecond.toString()
+                    binding.evolution12IV.load(it.firstEvoPicture)
+                    binding.evolution22IV.load(it.secondEvoPicture)
+
+                }
+
+
+
+
+
+
+            }
+
+
+
 
 
             val typesList: List<PokemonType> = pokemon.types
@@ -233,35 +291,13 @@ class DetailsFragment : Fragment() {
                     binding.backgroundIV.setImageResource(R.drawable.electric_type_pokemon_go_wallpaper___qhd___by_elbarnzo_dfrnwtw)
                 }
             }
-
-//            binding.progressTotal.max = 500
-//            binding.progressSpeed.max = 100
-//            binding.defencePB.max = 100
-//            binding.attcakPB.max = 100
-//            binding.hpPB.max = 100
-//            binding.spAtkPB.max = 100
-//            binding.spDefPB.max = 100
-//            binding.hpTV.text = pokemon.stats[0].base_stat.toString()
-//            binding.attackTV.text = pokemon.stats[1].base_stat.toString()
-//            binding.defenceTV.text = pokemon.stats[2].base_stat.toString()
-//            binding.spAtkTV.text = pokemon.stats[3].base_stat.toString()
-//            binding.spDefTV.text = pokemon.stats[4].base_stat.toString()
-//            binding.speedTV.text = pokemon.stats[5].base_stat.toString()
-//            val total: Int =
-//                (pokemon.stats[0].base_stat + pokemon.stats[1].base_stat + pokemon.stats[2].base_stat + pokemon.stats[3].base_stat + pokemon.stats[4].base_stat + pokemon.stats[5].base_stat)
-//binding.totalTV.text = total.toString()
-//
-//            binding.hpPB.progress = pokemon.stats[0].base_stat
-//            binding.attcakPB.progress = pokemon.stats[1].base_stat
-//            binding.defencePB.progress = pokemon.stats[2].base_stat
-//            binding.spAtkPB.progress = pokemon.stats[3].base_stat
-//            binding.spDefPB.progress = pokemon.stats[4].base_stat
-//            binding.progressSpeed.progress = pokemon.stats[5].base_stat
-//            binding.progressTotal.progress = total
         }
+
+
 
         binding.movesRV.visibility = View.GONE
         binding.tableRow.visibility = View.GONE
+        binding.evolutionFL.visibility = View.GONE
 
 
 
@@ -274,28 +310,32 @@ class DetailsFragment : Fragment() {
                     binding.movesRV.visibility = View.GONE
                     binding.tableRow.visibility = View.GONE
                     binding.scrollAbout.visibility = View.VISIBLE
-                    binding.statsLinear.visibility = View.GONE
+                    binding.statsRV.visibility = View.GONE
+                    binding.evolutionFL.visibility = View.GONE
                 }
 
                 R.id.rbStats -> {
                     binding.movesRV.visibility = View.GONE
                     binding.tableRow.visibility = View.GONE
                     binding.scrollAbout.visibility = View.GONE
-                    binding.statsLinear.visibility = View.VISIBLE
+                    binding.statsRV.visibility = View.VISIBLE
+                    binding.evolutionFL.visibility = View.GONE
                 }
 
                 R.id.rbEvolution -> {
                     binding.movesRV.visibility = View.GONE
                     binding.tableRow.visibility = View.GONE
                     binding.scrollAbout.visibility = View.GONE
-                    binding.statsLinear.visibility = View.GONE
+                    binding.statsRV.visibility = View.GONE
+                    binding.evolutionFL.visibility = View.VISIBLE
                 }
 
                 R.id.rbMoves -> {
                     binding.movesRV.visibility = View.VISIBLE
                     binding.scrollAbout.visibility = View.GONE
                     binding.tableRow.visibility = View.VISIBLE
-                    binding.statsLinear.visibility = View.GONE
+                    binding.statsRV.visibility = View.GONE
+                    binding.evolutionFL.visibility = View.GONE
                 }
             }
         }

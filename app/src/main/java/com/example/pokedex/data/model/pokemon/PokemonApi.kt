@@ -22,11 +22,6 @@ data class PokemonApi(
 )
 
 
-
-
-
-
-
 data class Abilities(
     val ability: PokemonAbility
 )

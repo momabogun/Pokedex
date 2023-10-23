@@ -9,16 +9,12 @@ data class SpeciesApi(
     val flavor_text_entries: List<TextEntry>,
     val habitat: Habitat,
     val generation: Generation,
-    val evolution_chain: EvolutionInResponse,
-    val evolves_from_species: IfBasicNullable?
+    val evolution_chain: EvolutionInResponse
 
 )
 
 
-data class IfBasicNullable(
-    val name: String,
-    val url: String
-)
+
 
 
 

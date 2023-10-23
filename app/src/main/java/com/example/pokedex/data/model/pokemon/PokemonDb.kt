@@ -14,5 +14,6 @@ class PokemonDb(
     val height: Int,
     val aboutText: String,
     val habitat: String,
-    val generation: String
+    val generation: String,
+    val evolution: Int
 )

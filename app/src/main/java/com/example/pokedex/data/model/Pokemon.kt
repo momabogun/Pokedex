@@ -10,13 +10,34 @@ import com.example.pokedex.data.model.pokemonMove.MoveDb
 import com.example.pokedex.data.model.pokemonMove.PokemonMoveCrossRef
 import com.example.pokedex.data.model.pokemonMove.VersionGroupDetails
 import com.example.pokedex.data.model.pokemonStats.PokemonStatCrossRef
-import com.example.pokedex.data.model.pokemonStats.Stat
+import com.example.pokedex.data.model.pokemonStats.StatDb
+import com.example.pokedex.data.model.pokemonStats.StatName
 import com.example.pokedex.data.model.pokemonType.PokemonType
 import com.example.pokedex.data.model.pokemonType.PokemonTypeCrossRef
 
 data class Pokemon(
     @Embedded
     val pokemonDb: PokemonDb,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "value",
+        associateBy = Junction(
+            value = PokemonStatCrossRef::class,
+            parentColumn = "pokemonId",
+            entityColumn = "valueCross"
+        )
+    )
+    val stats: List<StatDb>,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "name",
+        associateBy = Junction(
+            value = PokemonStatCrossRef::class,
+            parentColumn = "pokemonId",
+            entityColumn = "statName"
+        )
+    )
+    val nameStats: List<StatName>,
     @Relation(
         parentColumn = "id",
         entityColumn = "name",
@@ -56,17 +77,7 @@ data class Pokemon(
             entityColumn = "abilityName"
         )
     )
-    val abilities: List<PokemonAbility>,
+    val abilities: List<PokemonAbility>
 
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "base_stat",
-        associateBy = Junction(
-            value = PokemonStatCrossRef::class,
-            parentColumn = "pokemonId",
-            entityColumn = "statValue"
-        )
-    )
-    val stats: List<Stat>
 
 )
