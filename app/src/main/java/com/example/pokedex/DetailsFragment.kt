@@ -1,13 +1,13 @@
 package com.example.pokedex
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -49,8 +49,6 @@ class DetailsFragment : Fragment() {
     }
 
 
-
-
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,34 +58,20 @@ class DetailsFragment : Fragment() {
 
 
 
-
-        fun showAbout() {
-            binding.movesRV.visibility = TextView.GONE
-        }
-
-        fun showMoves() {
-            binding.movesRV.visibility = TextView.VISIBLE
-        }
-
-        fun showEvolution() {
-            binding.movesRV.visibility = TextView.GONE
-        }
-
-        fun showStats() {
-
-        }
-
-
-
-
         viewmodel.getPokemon(pokeId).observe(viewLifecycleOwner) {
             pokemon = it
             binding.detailsIV.load(pokemon.pokemonDb.pokemonImage)
-            binding.detailsTitleTV.text = pokemon.pokemonDb.name.replaceFirstChar {
-                if (it.isLowerCase()) it.titlecase(
-                    Locale.ROOT
-                ) else it.toString()
-            }
+            binding.detailsTitleTV.text =
+                pokemon.pokemonDb.name.split("-m").joinToString(" ♂").split("-f").joinToString(" ♀")
+
+
+                {
+                    it.replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(
+                            Locale.ROOT
+                        ) else it.toString()
+                    }
+                }
 
             binding.detailsIdTV.text = if (pokemon.pokemonDb.id < 10) {
                 "#000" + pokemon.pokemonDb.id.toString()
@@ -101,61 +85,88 @@ class DetailsFragment : Fragment() {
             }
 
 
-
-
-
-
-
-
-
             val statAdapter = StatsAdapter(it.stats, it.nameStats)
             binding.statsRV.adapter = statAdapter
-
-
-
 
 
             val adapter = MovesAdapter(it.moves.toMutableList(), it.levels.toMutableList())
             binding.movesRV.adapter = adapter
 
 
-            viewmodel.getEvolution(it.pokemonDb.evolution).observe(viewLifecycleOwner){
+            viewmodel.getEvolution(it.pokemonDb.evolution).observe(viewLifecycleOwner) {
 
-                if (it.levelToEvolve == 0){
+                if (it.evoFirst == null || it.evoFirst == "") {
                     binding.evolutionFL.visibility = View.GONE
-                } else{
-                    binding.textView8.text = it.basicName
-                    binding.textView9.text = it.firstEvoName
-                    binding.lvlDetailsTV.text = it.levelToEvolve.toString()
-                    binding.evolution1IV.load(it.basicPicture)
-                    binding.evolution2IV.load(it.firstEvoPicture)
+                } else {
+                    binding.textView8.text =
+                        it.basicName.split("-m").joinToString(" ♂").split("-f").joinToString(" ♀")
+
+
+                        {
+                            it.replaceFirstChar {
+                                if (it.isLowerCase()) it.titlecase(
+                                    Locale.ROOT
+                                ) else it.toString()
+                            }
+                        }
+                    binding.textView9.text =
+                        it.firstEvoName!!.split("-m").joinToString(" ♂").split("-f")
+                            .joinToString(" ♀")
+
+
+                            {
+                                it.replaceFirstChar {
+                                    if (it.isLowerCase()) it.titlecase(
+                                        Locale.ROOT
+                                    ) else it.toString()
+                                }
+                            }
+                    binding.lvlDetailsTV.text = "Lvl " + it.levelToEvolve.toString()
+                    binding.evolution1IV.load(it.evoBasic)
+                    binding.evolution2IV.load(it.evoFirst)
+
                 }
 
-                if (it.levelToEvolveSecond == 0){
+                if (it.evoSecond == null || it.evoSecond == "") {
                     binding.textView10.text = ""
                     binding.textView11.text = ""
-                    binding.lvlDetails2TV.text= ""
+                    binding.lvlDetails2TV.text = ""
                     binding.arrow2IV.visibility = View.GONE
                     binding.evolution12IV.visibility = View.GONE
                     binding.evolution22IV.visibility = View.GONE
-                }else{
-                    binding.textView10.text = it.firstEvoName
-                    binding.textView11.text = it.secondEvoName
-                    binding.lvlDetails2TV.text = it.levelToEvolveSecond.toString()
-                    binding.evolution12IV.load(it.firstEvoPicture)
-                    binding.evolution22IV.load(it.secondEvoPicture)
+                } else {
+                    binding.textView10.text =
+                        it.firstEvoName!!.split("-m").joinToString(" ♂").split("-f")
+                            .joinToString(" ♀")
+
+
+                            {
+                                it.replaceFirstChar {
+                                    if (it.isLowerCase()) it.titlecase(
+                                        Locale.ROOT
+                                    ) else it.toString()
+                                }
+                            }
+                    binding.textView11.text =
+                        it.secondEvoName!!.split("-m").joinToString(" ♂").split("-f")
+                            .joinToString(" ♀")
+
+
+                            {
+                                it.replaceFirstChar {
+                                    if (it.isLowerCase()) it.titlecase(
+                                        Locale.ROOT
+                                    ) else it.toString()
+                                }
+                            }
+                    binding.lvlDetails2TV.text = "Lvl " + it.levelToEvolveSecond.toString()
+                    binding.evolution12IV.load(it.evoFirst)
+                    binding.evolution22IV.load(it.evoSecond)
 
                 }
 
 
-
-
-
-
             }
-
-
-
 
 
             val typesList: List<PokemonType> = pokemon.types
@@ -291,7 +302,40 @@ class DetailsFragment : Fragment() {
                     binding.backgroundIV.setImageResource(R.drawable.electric_type_pokemon_go_wallpaper___qhd___by_elbarnzo_dfrnwtw)
                 }
             }
+
+
+            val progressBar = binding.barChart
+            progressBar.max = 600
+            var progress = 0
+
+            for (value in pokemon.stats) {
+                progress += value.value
+            }
+
+            if (progress < 200) {
+
+                progressBar.progressTintList = ColorStateList.valueOf(Color.parseColor("#E53935"))
+
+            }  else if (progress in 201..450){
+                progressBar.progressTintList = ColorStateList.valueOf(Color.parseColor("#FDD835"))
+            }
+            else{
+                progressBar.progressTintList = ColorStateList.valueOf(Color.parseColor("#7CB342"))
+            }
+
+            progressBar.progress = progress
+
+
+            binding.statValueTV.text = progress.toString()
+
+
         }
+
+
+        binding.statValueTV.text = "Total"
+
+
+
 
 
 
@@ -312,6 +356,7 @@ class DetailsFragment : Fragment() {
                     binding.scrollAbout.visibility = View.VISIBLE
                     binding.statsRV.visibility = View.GONE
                     binding.evolutionFL.visibility = View.GONE
+                    binding.frameLayout.visibility = View.GONE
                 }
 
                 R.id.rbStats -> {
@@ -320,6 +365,7 @@ class DetailsFragment : Fragment() {
                     binding.scrollAbout.visibility = View.GONE
                     binding.statsRV.visibility = View.VISIBLE
                     binding.evolutionFL.visibility = View.GONE
+                    binding.frameLayout.visibility = View.VISIBLE
                 }
 
                 R.id.rbEvolution -> {
@@ -328,6 +374,7 @@ class DetailsFragment : Fragment() {
                     binding.scrollAbout.visibility = View.GONE
                     binding.statsRV.visibility = View.GONE
                     binding.evolutionFL.visibility = View.VISIBLE
+                    binding.frameLayout.visibility = View.GONE
                 }
 
                 R.id.rbMoves -> {
@@ -336,6 +383,7 @@ class DetailsFragment : Fragment() {
                     binding.tableRow.visibility = View.VISIBLE
                     binding.statsRV.visibility = View.GONE
                     binding.evolutionFL.visibility = View.GONE
+                    binding.frameLayout.visibility = View.GONE
                 }
             }
         }

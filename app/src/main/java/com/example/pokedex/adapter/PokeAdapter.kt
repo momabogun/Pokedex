@@ -26,8 +26,11 @@ class PokeAdapter(
     }
 
 
-    //Fülle einen ViewHolder(layout: pokemon_item.xml) mit Inhalt(daten: Pokemon)
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
+
+
+
+
         if (position < pokemonList.size) {
             val pokemon = pokemonList[position]
             Log.d("PokemonLog", "$pokemon")

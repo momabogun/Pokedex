@@ -7,12 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.pokedex.adapter.PokeAdapter
+import com.example.pokedex.data.model.Pokemon
 import com.example.pokedex.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewmodel: PokeViewModel by activityViewModels()
+
+    private var genId: Int = 0
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+        arguments?.let { it ->
+            genId = it.getInt("genId")
+
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,9 +37,31 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewmodel.pokemon.observe(viewLifecycleOwner){
-            binding.pokeRV.adapter = PokeAdapter(it)
-        }
+                if (genId == 1){
+                    viewmodel.pokemon.observe(viewLifecycleOwner){
+                        binding.pokeRV.adapter = PokeAdapter(it)
+                    }
+                }
+                if (genId == 2){
+                    viewmodel.pokemon2.observe(viewLifecycleOwner){
+                        binding.pokeRV.adapter = PokeAdapter(it)
+                    }
+                }
+                if (genId== 3){
+                    viewmodel.pokemon3.observe(viewLifecycleOwner){
+                        binding.pokeRV.adapter = PokeAdapter(it)
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
     }
 
 

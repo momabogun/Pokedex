@@ -169,7 +169,8 @@
         android:layout_marginEnd="16dp"
         android:text="TextView"
         android:textColor="?colorOnPrimary"
-        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/detailsTitleTV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/detailsTitleTV" />
@@ -263,7 +264,7 @@
         android:id="@+id/scrollAbout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="20dp"
+        android:layout_margin="8dp"
         android:elevation="10dp"
         android:isScrollContainer="true"
         android:visibility="gone"
@@ -297,6 +298,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
+                    android:ellipsize="end"
                     android:textSize="18sp"
                     tools:text="hs ahdshh dsah dsah das dsadasdasdd dasdasda" />
             </LinearLayout>
@@ -445,16 +447,79 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/statsRV"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:elevation="10dp"
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         tools:listitem="@layout/list_stats" />
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:elevation="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statsRV">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/stat_valueTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:text="60"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/barChart"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/stat_nameTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Total"
+                android:textColor="#989898"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/barChart"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="250dp"
+                android:layout_height="6dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="4"
+                android:progress="60"
+                android:progressDrawable="@drawable/red_pb"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+
+
+
+
+
+
 
     <FrameLayout
         android:id="@+id/evolutionFL"
@@ -462,6 +527,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:elevation="10dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -475,23 +541,24 @@
                 android:id="@+id/lvlDetailsTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
                 android:elevation="10dp"
                 android:text="Lvl16"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/arrowIV"
                 app:layout_constraintStart_toStartOf="@+id/arrowIV"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/arrowIV" />
 
             <ImageView
                 android:id="@+id/arrowIV"
                 android:layout_width="86dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="64dp"
                 android:elevation="10dp"
                 android:src="@drawable/baseline_arrow_forward_24"
                 app:layout_constraintEnd_toStartOf="@+id/evolution2IV"
                 app:layout_constraintStart_toEndOf="@+id/evolution1IV"
-                app:layout_constraintTop_toBottomOf="@+id/lvlDetailsTV" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#bebebe" />
 
             <ImageView
                 android:id="@+id/evolution1IV"
@@ -520,25 +587,26 @@
                 android:id="@+id/lvlDetails2TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
                 android:elevation="10dp"
                 android:text="Lvl16"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/arrow2IV"
                 app:layout_constraintHorizontal_bias="0.49"
                 app:layout_constraintStart_toStartOf="@+id/arrow2IV"
-                app:layout_constraintTop_toBottomOf="@+id/arrowIV" />
+                app:layout_constraintTop_toBottomOf="@+id/arrow2IV" />
 
             <ImageView
                 android:id="@+id/arrow2IV"
                 android:layout_width="86dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="64dp"
                 android:elevation="10dp"
                 android:src="@drawable/baseline_arrow_forward_24"
                 app:layout_constraintEnd_toStartOf="@+id/evolution2_2IV"
                 app:layout_constraintHorizontal_bias="0.506"
                 app:layout_constraintStart_toEndOf="@+id/evolution1_2IV"
-                app:layout_constraintTop_toBottomOf="@+id/lvlDetails2TV" />
+                app:layout_constraintTop_toBottomOf="@+id/lvlDetailsTV"
+                app:tint="#bebebe" />
 
             <ImageView
                 android:id="@+id/evolution1_2IV"
@@ -568,6 +636,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/evolution1IV"
                 app:layout_constraintStart_toStartOf="@+id/evolution1IV"
                 app:layout_constraintTop_toBottomOf="@+id/evolution1IV" />
@@ -578,6 +647,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/evolution2IV"
                 app:layout_constraintStart_toStartOf="@+id/evolution2IV"
                 app:layout_constraintTop_toBottomOf="@+id/evolution2IV" />
@@ -588,6 +658,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/evolution1_2IV"
                 app:layout_constraintStart_toStartOf="@+id/evolution1_2IV"
                 app:layout_constraintTop_toBottomOf="@+id/evolution1_2IV" />
@@ -598,6 +669,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/evolution2_2IV"
                 app:layout_constraintStart_toStartOf="@+id/evolution2_2IV"
                 app:layout_constraintTop_toBottomOf="@+id/evolution2_2IV" />

@@ -1,6 +1,7 @@
 package com.example.pokedex.data
 
 import androidx.lifecycle.LiveData
+
 import com.example.pokedex.data.database.PokeDatabase
 import com.example.pokedex.data.model.pokemonMove.MoveDb
 import com.example.pokedex.data.model.Pokemon
@@ -16,11 +17,21 @@ import com.example.pokedex.data.model.pokemonType.PokemonTypeCrossRef
 import com.example.pokedex.data.remote.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.Exception
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.IOException
 
 class AppRepository(val apiService: ApiService, val db: PokeDatabase) {
 
-    val pokemon = db.dao.getAllPokemon()
+    val pokemon = db.dao.getAllG1Pokemon()
+
+
+    val pokemon2 = db.dao.getAllG2Pokemon()
+
+
+    val pokemon3 = db.dao.getAllG3Pokemon()
+
 
     suspend fun getPokemonList() {
         val pokeList = apiService.getPokemonList().results
@@ -34,9 +45,20 @@ class AppRepository(val apiService: ApiService, val db: PokeDatabase) {
     }
 
 
+
+
+
+
+
+
+
+
+
     fun getEvolution(evoId: Int):LiveData<EvolutionDb> = db.dao.getEvolution(evoId)
 
     fun getPokemon(pokeId: Int): LiveData<Pokemon> = db.dao.getPokemon(pokeId)
+
+
 
 
     suspend fun loadPokemon(pokemonInResponse: PokemonInResponse) {
@@ -44,6 +66,32 @@ class AppRepository(val apiService: ApiService, val db: PokeDatabase) {
             val pokemonWithDetail = apiService.getPokemonByName(pokemonInResponse.name)
             val speciesWithDetails = apiService.getPokemonSpecies(pokemonWithDetail.name)
             val evolution = apiService.getEvolutionByID(pokemonWithDetail.id)
+
+            val basicName = evolution.chain.species.name
+            val firstEvoName = evolution.chain.evolves_to.getOrNull(0)?.species?.name ?: ""
+            val secondEvoName = evolution.chain.evolves_to.getOrNull(0)?.evolves_to?.getOrNull(0)?.species?.name ?: ""
+
+
+
+
+            val basicImage = apiService.getPokemonImageByName(basicName)
+
+
+
+            val firstEvoImage = if (firstEvoName.isNotBlank()) {
+                apiService.getPokemonImageByName(firstEvoName)
+            } else {
+                null
+            }
+
+            val secondEvoImage = if (secondEvoName.isNotBlank()) {
+                apiService.getPokemonImageByName(secondEvoName)
+            } else {
+                null
+            }
+
+
+
             val pokemonDb = PokemonDb(
                 id = pokemonWithDetail.id,
                 name = pokemonWithDetail.name,
@@ -53,9 +101,14 @@ class AppRepository(val apiService: ApiService, val db: PokeDatabase) {
                 aboutText = speciesWithDetails.flavor_text_entries[1].flavor_text,
                 generation = speciesWithDetails.generation.name,
                 habitat = speciesWithDetails.habitat.name,
-                evolution = speciesWithDetails.evolution_chain.id
+                evolution = speciesWithDetails.evolution_chain.id,
+
             )
             db.dao.insertPokemon(pokemonDb)
+
+
+
+
 
                 val evolutionDb = EvolutionDb(
                     evoId = evolution.id,
@@ -66,13 +119,12 @@ class AppRepository(val apiService: ApiService, val db: PokeDatabase) {
                         ?.min_level ?: 0,
                     secondEvoName = evolution.chain.evolves_to.getOrNull(0)?.evolves_to?.getOrNull(0)?.species?.name ?: "",
                     levelToEvolveSecond = evolution.chain.evolves_to.getOrNull(0)?.evolves_to?.getOrNull(0)?.evolution_details?.getOrNull(0)?.min_level ?: 0,
-                    basicPicture = db.dao.getPokemonByName(evolution.chain.species.name)?.pokemonDb?.pokemonImage ?: "",
-                    firstEvoPicture = db.dao.getPokemonByName(evolution.chain.evolves_to.getOrNull(0)?.species?.name ?: "").pokemonDb.pokemonImage,
-                    secondEvoPicture = db.dao.getPokemonByName(evolution.chain.evolves_to.getOrNull(0)?.evolves_to?.getOrNull(0)?.species?.name ?: "")?.pokemonDb?.pokemonImage ?: ""
+                    evoBasic = basicImage.sprites.other.officialArtwork.front_default,
+                    evoFirst = firstEvoImage?.sprites?.other?.officialArtwork?.front_default ?: "",
+                    evoSecond = secondEvoImage?.sprites?.other?.officialArtwork?.front_default?: ""
                 )
 
             db.dao.insertEvolution(evolutionDb)
-
 
 
 

@@ -23,8 +23,17 @@ import com.example.pokedex.data.model.pokemonStats.StatName
 @Dao
 interface PokemonDao {
 
-    @Query("SELECT * FROM pokemon")
-    fun getAllPokemon(): LiveData<List<Pokemon>>
+    @Query("SELECT * FROM pokemon WHERE id < 151")
+    fun getAllG1Pokemon(): LiveData<List<Pokemon>>
+
+
+    @Query("SELECT * FROM pokemon WHERE id > 151 AND id < 251")
+    fun getAllG2Pokemon(): LiveData<List<Pokemon>>
+
+
+
+    @Query("SELECT * FROM pokemon WHERE id > 251 AND id < 386")
+    fun getAllG3Pokemon(): LiveData<List<Pokemon>>
 
 
     @Insert(onConflict = IGNORE)
@@ -63,10 +72,6 @@ interface PokemonDao {
     @Insert(onConflict = IGNORE)
     fun insertPokemonTypeCrossRef(crossRef: PokemonTypeCrossRef)
 
-
-
-
-
     @Insert(onConflict = IGNORE)
     fun insertPokemonAbilityCrossRef(crossRef: PokemonAbilityCrossRef)
 
@@ -82,6 +87,8 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon WHERE name = :name")
     fun getPokemonByName(name: String): Pokemon
 
+    @Query("SELECT pokemonImage FROM pokemon WHERE name = :pokemonName")
+    fun getPokemonImageByName(pokemonName: String?): String
 
     @Query("SELECT * FROM evolution WHERE evoId = :id")
     fun getEvolution(id: Int): LiveData<EvolutionDb>

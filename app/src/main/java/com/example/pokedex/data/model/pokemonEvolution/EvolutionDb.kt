@@ -8,11 +8,11 @@ class EvolutionDb (
     @PrimaryKey
     val evoId: Int,
     val basicName: String,
-    val basicPicture: String?,
     val firstEvoName: String?,
-    val firstEvoPicture: String,
     val secondEvoName: String?,
-    val secondEvoPicture: String?,
     val levelToEvolve: Int?,
-    val levelToEvolveSecond: Int?
+    val levelToEvolveSecond: Int?,
+    val evoBasic: String,
+    val evoFirst: String?,
+    val evoSecond: String?
 )
