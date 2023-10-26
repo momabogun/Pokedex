@@ -10,8 +10,7 @@ The Pokédex app is an Android application that serves as an interactive Pokéde
 
 ## Screenshots
 
-![Screenshot 1](Screenshot_20231026-122750.png)
-![Screenshot 2](screenshot2.png)
+![Screenshot 1](src/main/res/drawable/pokemonReadme.png)
 
 ## Libraries Used
 
@@ -50,7 +49,7 @@ The app fetches data from the [Poke API](https://pokeapi.co/), an open-source Po
 
 ## Contributors
 
-- [Your Name](https://github.com/momabogun)
+- [Momcilo Bogunovic](https://github.com/momabogun)
 
 ## License
 
