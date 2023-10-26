@@ -35,7 +35,7 @@ To build and run this app, follow these steps:
 
 ## Usage
 
-- Upon launching the app, you'll be presented with loading screen (can take a little bit longer, depends on Api latency), which will lead you to list of Pokemons.
+- Upon launching the app, you'll be presented with loading screen (can take a little bit longer, depends on Api latency), which will lead you to the list of Pokemons.
 - You can use the search bar to find a specific Pokémon by name.
 - Click on a Pokémon to view detailed information.
 
