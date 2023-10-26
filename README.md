@@ -10,7 +10,7 @@ The Pokédex app is an Android application that serves as an interactive Pokéde
 
 ## Screenshots
 
-![Screenshot 1](src/main/res/drawable/pokemonReadme.png)
+![Screenshot 1](pic/pokemonReadme.png)
 
 ## Libraries Used
 

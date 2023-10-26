@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.pokedex.HomeFragmentDirections
 import com.example.pokedex.R
 import com.example.pokedex.data.model.Pokemon
 import com.example.pokedex.databinding.ListItemBinding
+import com.example.pokedex.ui.HomeFragmentDirections
 import java.util.Locale
 
 class PokeAdapter(
