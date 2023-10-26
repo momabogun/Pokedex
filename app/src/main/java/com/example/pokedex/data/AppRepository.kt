@@ -24,35 +24,20 @@ import java.io.IOException
 
 class AppRepository(val apiService: ApiService, val db: PokeDatabase) {
 
-    val pokemon = db.dao.getAllG1Pokemon()
+    val pokemon = db.dao.getAllPokemon()
 
-
-    val pokemon2 = db.dao.getAllG2Pokemon()
-
-
-    val pokemon3 = db.dao.getAllG3Pokemon()
+    val count = db.dao.getCount()
 
 
     suspend fun getPokemonList() {
-        val pokeList = apiService.getPokemonList().results
 
-        for (pokemonInResponse in pokeList) {
-            if (!db.dao.pokemonExists(pokemonInResponse.id)) {
-                loadPokemon(pokemonInResponse)
+            val pokeList = apiService.getPokemonList().results
+            for (pokemonInResponse in pokeList) {
+                if (!db.dao.pokemonExists(pokemonInResponse.id)) {
+                    loadPokemon(pokemonInResponse)
+                }
             }
-
         }
-    }
-
-
-
-
-
-
-
-
-
-
 
     fun getEvolution(evoId: Int):LiveData<EvolutionDb> = db.dao.getEvolution(evoId)
 
@@ -61,8 +46,9 @@ class AppRepository(val apiService: ApiService, val db: PokeDatabase) {
 
 
 
+
+
     suspend fun loadPokemon(pokemonInResponse: PokemonInResponse) {
-        withContext(Dispatchers.IO) {
             val pokemonWithDetail = apiService.getPokemonByName(pokemonInResponse.name)
             val speciesWithDetails = apiService.getPokemonSpecies(pokemonWithDetail.name)
             val evolution = apiService.getEvolutionByID(pokemonWithDetail.id)
@@ -70,11 +56,8 @@ class AppRepository(val apiService: ApiService, val db: PokeDatabase) {
             val basicName = evolution.chain.species.name
             val firstEvoName = evolution.chain.evolves_to.getOrNull(0)?.species?.name ?: ""
             val secondEvoName = evolution.chain.evolves_to.getOrNull(0)?.evolves_to?.getOrNull(0)?.species?.name ?: ""
-
-
-
-
             val basicImage = apiService.getPokemonImageByName(basicName)
+
 
 
 
@@ -127,11 +110,6 @@ class AppRepository(val apiService: ApiService, val db: PokeDatabase) {
             db.dao.insertEvolution(evolutionDb)
 
 
-
-
-
-
-
             for (type in pokemonWithDetail.types) {
                 db.dao.insertType(type.type)
                 val crossRef = PokemonTypeCrossRef(pokemonWithDetail.id, type.type.name)
@@ -180,4 +158,3 @@ class AppRepository(val apiService: ApiService, val db: PokeDatabase) {
             }
         }
     }
-}

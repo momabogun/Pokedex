@@ -3,23 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/pokedexFragment">
+    app:startDestination="@id/loadingFragment">
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.pokedex.HomeFragment"
+        android:name="com.example.pokedex.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
-        <argument
-            android:name="genId"
-            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.pokedex.DetailsFragment"
+        android:name="com.example.pokedex.ui.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <argument
@@ -27,12 +24,11 @@
             app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@+id/pokedexFragment"
-        android:name="com.example.pokedex.PokedexFragment"
-        android:label="fragment_pokedex"
-        tools:layout="@layout/fragment_pokedex" >
+        android:id="@+id/loadingFragment"
+        android:name="com.example.pokedex.ui.LoadingFragment"
+        android:label="LoadingFragment" >
         <action
-            android:id="@+id/action_pokedexFragment_to_homeFragment"
+            android:id="@+id/action_loadingFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

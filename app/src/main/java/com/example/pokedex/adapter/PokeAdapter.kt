@@ -1,5 +1,6 @@
 package com.example.pokedex.adapter
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,7 @@ import com.example.pokedex.databinding.ListItemBinding
 import java.util.Locale
 
 class PokeAdapter(
-    val pokemonList: List<Pokemon>
+    var pokemonList: List<Pokemon>
 ) : RecyclerView.Adapter<PokeAdapter.PokemonViewHolder>() {
 
     inner class PokemonViewHolder(val binding: ListItemBinding) :
@@ -23,6 +24,14 @@ class PokeAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
         val binding = ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PokemonViewHolder(binding)
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun newData(newList: List<Pokemon>){
+        pokemonList = newList
+        notifyDataSetChanged()
+
     }
 
 
@@ -49,11 +58,11 @@ class PokeAdapter(
             holder.binding.pokemonIV.load(pokemon.pokemonDb.pokemonImage)
 
             holder.binding.number.text = if (pokemon.pokemonDb.id < 10) {
-                "#000" + pokemon.pokemonDb.id.toString()
-            } else if (pokemon.pokemonDb.id < 100) {
                 "#00" + pokemon.pokemonDb.id.toString()
-            } else {
+            } else if (pokemon.pokemonDb.id < 100) {
                 "#0" + pokemon.pokemonDb.id.toString()
+            } else {
+                "#" + pokemon.pokemonDb.id.toString()
             }
 
 

@@ -13,6 +13,7 @@ import com.example.pokedex.data.model.pokemonEvolution.EvolutionDb
 import com.example.pokedex.data.remote.PokeApi
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,17 +28,7 @@ class PokeViewModel(app: Application) : AndroidViewModel(app) {
 
     val pokemon: LiveData<List<Pokemon>> = repository.pokemon
 
-
-    val pokemon2: LiveData<List<Pokemon>> = repository.pokemon2
-
-    val pokemon3: LiveData<List<Pokemon>> = repository.pokemon3
-
-
-
-
-
-
-
+    val count: LiveData<Int> = repository.count
 
 
     init {
@@ -50,15 +41,14 @@ class PokeViewModel(app: Application) : AndroidViewModel(app) {
     fun getEvolution(evoId: Int): LiveData<EvolutionDb> = repository.getEvolution(evoId)
 
 
-
-
-
-
     fun loadPokeList() {
-
-            viewModelScope.launch(Dispatchers.IO) {
-                repository.getPokemonList()
-
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getPokemonList()
         }
     }
+
+
+}
+
+
+

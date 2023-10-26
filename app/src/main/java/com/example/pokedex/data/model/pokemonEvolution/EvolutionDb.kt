@@ -12,7 +12,7 @@ class EvolutionDb (
     val secondEvoName: String?,
     val levelToEvolve: Int?,
     val levelToEvolveSecond: Int?,
-    val evoBasic: String,
+    val evoBasic: String?,
     val evoFirst: String?,
     val evoSecond: String?
 )

@@ -28,16 +28,11 @@ private val retrofit = Retrofit.Builder()
 
 interface ApiService {
 
-    @GET("pokemon?limit=30")
+    @GET("pokemon?limit=200")
     suspend fun getPokemonList() : ResponseList
 
 
 
-
-
-
-    @GET("pokemon/{pokemonId}")
-    suspend fun getPokemonById(@Path("pokemonId") pokemonId: Int) : PokemonApi
 
     @GET("pokemon/{pokemonName}")
     suspend fun getPokemonByName(@Path("pokemonName") pokemonName: String) : PokemonApi
@@ -45,9 +40,8 @@ interface ApiService {
     @GET("evolution-chain/{evolutionId}")
     suspend fun getEvolutionByID(@Path("evolutionId")evolutionId: Int): EvolutionApi
 
-    @GET("pokemon/{name}/")
+    @GET("pokemon/{name}")
     suspend fun getPokemonImageByName(@Path("name") name: String): PokemonImageResponse
-
 
 
     @GET("move/{moveId}")

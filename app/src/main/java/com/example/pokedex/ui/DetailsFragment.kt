@@ -1,4 +1,4 @@
-package com.example.pokedex
+package com.example.pokedex.ui
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
@@ -8,10 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.example.pokedex.PokeViewModel
+import com.example.pokedex.R
 import com.example.pokedex.adapter.MovesAdapter
 import com.example.pokedex.adapter.StatsAdapter
 import com.example.pokedex.data.model.Pokemon
@@ -96,7 +97,12 @@ class DetailsFragment : Fragment() {
             viewmodel.getEvolution(it.pokemonDb.evolution).observe(viewLifecycleOwner) {
 
                 if (it.evoFirst == null || it.evoFirst == "") {
-                    binding.evolutionFL.visibility = View.GONE
+                    binding.textView9.text = ""
+                    binding.textView8.text = ""
+                    binding.lvlDetailsTV.text = ""
+                    binding.arrowIV.visibility = View.GONE
+                    binding.evolution1IV.visibility = View.GONE
+                    binding.evolution2IV.visibility = View.GONE
                 } else {
                     binding.textView8.text =
                         it.basicName.split("-m").joinToString(" ♂").split("-f").joinToString(" ♀")
@@ -112,8 +118,6 @@ class DetailsFragment : Fragment() {
                     binding.textView9.text =
                         it.firstEvoName!!.split("-m").joinToString(" ♂").split("-f")
                             .joinToString(" ♀")
-
-
                             {
                                 it.replaceFirstChar {
                                     if (it.isLowerCase()) it.titlecase(

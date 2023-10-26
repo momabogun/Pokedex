@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="?colorPrimary"
+    android:layout_height="match_parent"
+    tools:context=".ui.LoadingFragment">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pokemon_logo_by_jormxdos_dfgb5x2" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:srcCompat="@drawable/pokebola_pokeball_png_0" />
+
+    <ProgressBar
+        android:id="@+id/loadingPB"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="250dp"
+        android:layout_height="6dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/red_pb"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Loading Pokemons..."
+        android:textColor="?colorOnPrimary"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/loadingPB"
+        app:layout_constraintStart_toStartOf="@+id/loadingPB"
+        app:layout_constraintTop_toBottomOf="@+id/loadingPB" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

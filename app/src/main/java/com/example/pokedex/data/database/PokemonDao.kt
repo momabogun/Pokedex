@@ -23,17 +23,14 @@ import com.example.pokedex.data.model.pokemonStats.StatName
 @Dao
 interface PokemonDao {
 
-    @Query("SELECT * FROM pokemon WHERE id < 151")
-    fun getAllG1Pokemon(): LiveData<List<Pokemon>>
+    @Query("SELECT * FROM pokemon")
+    fun getAllPokemon(): LiveData<List<Pokemon>>
 
 
-    @Query("SELECT * FROM pokemon WHERE id > 151 AND id < 251")
-    fun getAllG2Pokemon(): LiveData<List<Pokemon>>
+    @Query("SELECT COUNT(*) FROM pokemon")
+    fun getCount(): LiveData<Int>
 
 
-
-    @Query("SELECT * FROM pokemon WHERE id > 251 AND id < 386")
-    fun getAllG3Pokemon(): LiveData<List<Pokemon>>
 
 
     @Insert(onConflict = IGNORE)
