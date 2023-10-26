@@ -28,7 +28,7 @@ private val retrofit = Retrofit.Builder()
 
 interface ApiService {
 
-    @GET("pokemon?limit=2")
+    @GET("pokemon?limit=200")
     suspend fun getPokemonList() : ResponseList
 
     @GET("pokemon/{pokemonName}")

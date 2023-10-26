@@ -70,7 +70,7 @@ class LoadingFragment : Fragment() {
         viewmodel.count.observe(viewLifecycleOwner){
             val progress = it
             loadingBar.progress = progress
-            if (progress == 2){
+            if (progress == 200){
                 findNavController().navigate(LoadingFragmentDirections.actionLoadingFragmentToHomeFragment())
             }
         }
