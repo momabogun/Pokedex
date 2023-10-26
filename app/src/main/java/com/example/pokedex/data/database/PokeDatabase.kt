@@ -33,7 +33,7 @@ import com.example.pokedex.data.model.pokemonStats.StatName
         PokemonStatCrossRef::class,
         StatName::class,
         EvolutionDb::class
-    ], version = 1
+    ], version = 2
 )
 abstract class PokeDatabase : RoomDatabase() {
 

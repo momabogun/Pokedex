@@ -31,9 +31,6 @@ class PokeViewModel(app: Application) : AndroidViewModel(app) {
     val count: LiveData<Int> = repository.count
 
 
-    init {
-        loadPokeList()
-    }
 
 
     fun getPokemon(pokeId: Int): LiveData<Pokemon> = repository.getPokemon(pokeId)

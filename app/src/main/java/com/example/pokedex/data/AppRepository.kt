@@ -1,6 +1,10 @@
 package com.example.pokedex.data
 
+import android.content.Context
+import android.net.ConnectivityManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.LiveData
+import com.example.pokedex.NetworkMonitor
 
 import com.example.pokedex.data.database.PokeDatabase
 import com.example.pokedex.data.model.pokemonMove.MoveDb
@@ -27,6 +31,7 @@ class AppRepository(val apiService: ApiService, val db: PokeDatabase) {
     val pokemon = db.dao.getAllPokemon()
 
     val count = db.dao.getCount()
+
 
 
     suspend fun getPokemonList() {
